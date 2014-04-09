@@ -1,0 +1,81 @@
+<!--
+ Copyright 2009 OW2 Chameleon
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+
+   http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+      <groupId>org.ow2.chameleon.mail</groupId>
+      <artifactId>mail-service-reactor</artifactId>
+      <version>1.0.1-SNAPSHOT</version>
+  </parent>
+
+  <artifactId>mail-service</artifactId>
+  <name>OW2 Chameleon - Mail Service</name>
+  <packaging>bundle</packaging>
+
+  <description>This project defines a Mail Service</description>
+  <properties>
+    <interface.version>1.1.0</interface.version>
+  </properties>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>2.0.1</version>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Bundle-SymbolicName>org.ow2.chameleon.mail</Bundle-SymbolicName>
+            <Bundle-Vendor>OW2 Chameleon</Bundle-Vendor>
+            <Include-Resource>
+              {maven-resources},
+              META-INF/NOTICE = NOTICE,
+              META-INF/LICENSE = LICENSE
+            </Include-Resource>
+            <Export-Package>
+              org.ow2.chameleon.mail; version=${interface.version}
+            </Export-Package>
+          </instructions>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.5</source>
+          <target>1.5</target>
+        </configuration>
+      </plugin>
+    </plugins>
+    <extensions>
+      <extension>
+        <groupId>org.apache.maven.wagon</groupId>
+         <artifactId>wagon-ssh</artifactId>
+         <version>1.0-beta-7</version>
+      </extension>
+    </extensions>
+  </build>
+
+  <distributionManagement>
+    <site>
+      <id>chameleon.website</id>
+      <url>scp://shell.forge.objectweb.org/var/lib/gforge/chroot/home/groups/chameleon/htdocs/api/${project.artifactId}/${project.version}</url>
+    </site>
+  </distributionManagement>
+
+
+</project>
