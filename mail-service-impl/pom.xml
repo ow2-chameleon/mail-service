@@ -17,7 +17,7 @@
     <parent>
         <groupId>org.ow2.chameleon.mail</groupId>
         <artifactId>mail-service-reactor</artifactId>
-        <version>1.1.0</version>
+        <version>1.1.1-SNAPSHOT</version>
     </parent>
     <artifactId>mail-service-impl</artifactId>
     <name>OW2 Chameleon - Mail Service Implementation based on javax.mail</name>

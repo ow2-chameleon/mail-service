@@ -23,7 +23,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.ow2.chameleon.mail</groupId>
     <artifactId>mail-service-reactor</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>OW2 Chameleon - Mail Service Reactor</name>
 
