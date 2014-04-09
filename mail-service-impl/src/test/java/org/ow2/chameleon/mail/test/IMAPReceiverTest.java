@@ -14,17 +14,16 @@
  */
 package org.ow2.chameleon.mail.test;
 
-import java.util.Date;
-import java.util.List;
-
-import junit.framework.Assert;
-
+import org.junit.Assert;
 import org.junit.Test;
 import org.ow2.chameleon.mail.Mail;
 import org.ow2.chameleon.mail.MailSenderService;
 import org.ow2.chameleon.mail.impl.IMAPMailReceiver;
 import org.ow2.chameleon.mail.impl.SMTPMailSender;
 import org.ow2.chameleon.mail.impl.SMTPMailSender.Connection;
+
+import java.util.Date;
+import java.util.List;
 
 
 public class IMAPReceiverTest {
