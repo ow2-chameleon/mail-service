@@ -12,7 +12,8 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 -->
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <parent>
         <groupId>org.sonatype.oss</groupId>
@@ -38,6 +39,16 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
+
+    <properties>
+        <ow2DistMgmtSnapshotsUrl>
+            http://repository.ow2.org/nexus/content/repositories/snapshots
+        </ow2DistMgmtSnapshotsUrl>
+        <ow2DistMgmtReleasesUrl>
+            http://repository.ow2.org/nexus/service/local/staging/deploy/maven2
+        </ow2DistMgmtReleasesUrl>
+    </properties>
+
 
     <inceptionYear>2009</inceptionYear>
 
@@ -107,6 +118,7 @@
                     <execution>
                         <goals>
                             <goal>fix</goal>
+                            <goal>jar</goal>
                         </goals>
                         <phase>prepare-package</phase>
                     </execution>
@@ -174,4 +186,18 @@
         </profile>
     </profiles>
 
+    <distributionManagement>
+        <repository>
+            <id>ow2.release</id>
+            <name>OW2 Maven Releases Repository</name>
+            <url>
+                http://repository.ow2.org/nexus/service/local/staging/deploy/maven2
+            </url>
+        </repository>
+        <snapshotRepository>
+            <id>ow2.snapshot</id>
+            <name>OW2 Maven Snapshots Repository</name>
+            <url>${ow2DistMgmtSnapshotsUrl}</url>
+        </snapshotRepository>
+    </distributionManagement>
 </project>
