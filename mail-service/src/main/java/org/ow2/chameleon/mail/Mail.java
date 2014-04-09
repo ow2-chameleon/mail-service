@@ -25,7 +25,7 @@ import java.util.List;
  * Mail class to quickly create Mail object without any check.
  * Be aware that implementations may override this class
  * to improve checking (such as unmodifiable objects)
- *
+ * <p/>
  * This class follow a kind of <tt>fluent API</tt> approach.
  */
 public class Mail {
@@ -53,12 +53,12 @@ public class Mail {
     /**
      * The subject.
      */
-    protected String  m_subject = "no subject";
+    protected String m_subject = "no subject";
 
     /**
      * The body.
      */
-    protected String  m_body = "";
+    protected String m_body = "";
 
     /**
      * Is the mail read?
@@ -82,26 +82,38 @@ public class Mail {
     protected String m_id;
 
     /**
+     * The body's charset.
+     */
+    private String m_charset;
+
+    /**
+     * The body's TEXT/ sub-mime-type.
+     */
+    private String m_mime;
+
+    /**
      * Creates a new Mail object
-     * @param to addressee
-     * @param subject subject
-     * @param body body (text)
+     *
+     * @param to          addressee
+     * @param subject     subject
+     * @param body        body (text)
      * @param attachments file attachments
      */
     public Mail(String to, String subject, String body, List<File> attachments) {
         m_to.add(to);
         m_subject = subject;
         m_body = body;
-        if (attachments != null  && ! attachments.isEmpty()) {
+        if (attachments != null && !attachments.isEmpty()) {
             m_attachments.addAll(attachments);
         }
     }
 
     /**
      * Creates a new Mail object
-     * @param to addressee
+     *
+     * @param to      addressee
      * @param subject subject
-     * @param body body (texT)
+     * @param body    body (texT)
      */
     public Mail(String to, String subject, String body) {
         this(to, subject, body, null);
@@ -110,30 +122,35 @@ public class Mail {
     /**
      * Creates a new empty Mail object.
      */
-    public Mail() { }
+    public Mail() {
+    }
 
     /**
      * Creates a new Mail object by copying an exiting mail.
+     *
      * @param mail the mail to copy.
      * @throws FileNotFoundException if a file attached to the existing mail does
-     * not exist.
+     *                               not exist.
      */
     public Mail(Mail mail) throws FileNotFoundException {
         this
-            .to(mail.to())
-            .cc(mail.cc())
-            .replyTo(mail.replyTo())
-            .subject(mail.subject())
-            .body(mail.body())
-            .attach(mail.attachments())
-            .read(mail.read())
-            .sent(mail.sent())
-            .from(mail.from())
-            .id(mail.id());
+                .to(mail.to())
+                .cc(mail.cc())
+                .replyTo(mail.replyTo())
+                .subject(mail.subject())
+                .body(mail.body())
+                .charset(mail.charset())
+                .subType(mail.subType())
+                .attach(mail.attachments())
+                .read(mail.read())
+                .sent(mail.sent())
+                .from(mail.from())
+                .id(mail.id());
     }
 
     /**
      * Sets the 'from' attribute.
+     *
      * @param from the from address.
      * @return the current {@link Mail}
      */
@@ -144,6 +161,7 @@ public class Mail {
 
     /**
      * Gets the 'from' attribute
+     *
      * @return the from attribute value
      */
     public String from() {
@@ -152,6 +170,7 @@ public class Mail {
 
     /**
      * Adds an address to the 'to' list.
+     *
      * @param to the address to add.
      * @return the current {@link Mail}
      */
@@ -162,6 +181,7 @@ public class Mail {
 
     /**
      * Adds a list of addresses to the 'to' list.
+     *
      * @param to the list to add.
      * @return the current {@link Mail}
      */
@@ -172,6 +192,7 @@ public class Mail {
 
     /**
      * Gets the list of addresses.
+     *
      * @return the 'to' list
      */
     public List<String> to() {
@@ -180,6 +201,7 @@ public class Mail {
 
     /**
      * Removes an address from the 'to' list.
+     *
      * @param to the address to remove
      * @return the current {@link Mail}
      */
@@ -190,6 +212,7 @@ public class Mail {
 
     /**
      * Adds addresses to the 'cc' list.
+     *
      * @param cc the list of addresses to add.
      * @return the current {@link Mail}
      */
@@ -200,7 +223,8 @@ public class Mail {
 
     /**
      * Removes an address from the 'cc' list.
-     * @param to the address to remove
+     *
+     * @param cc the address to remove
      * @return the current {@link Mail}
      */
     public Mail removeCC(String cc) {
@@ -210,7 +234,8 @@ public class Mail {
 
     /**
      * Adds an address to the 'cc' list.
-     * @param to the address to add.
+     *
+     * @param cc the address to add.
      * @return the current {@link Mail}
      */
     public Mail cc(String cc) {
@@ -222,6 +247,7 @@ public class Mail {
 
     /**
      * Gets the list of 'cc' addresses.
+     *
      * @return the 'cc' list
      */
     public List<String> cc() {
@@ -230,6 +256,7 @@ public class Mail {
 
     /**
      * Adds an address to the 'reply-to' list
+     *
      * @param to the address to add.
      * @return the current {@link Mail}
      */
@@ -240,6 +267,7 @@ public class Mail {
 
     /**
      * Adds a list of addresses to the 'reply-to' list
+     *
      * @param reply the list of addresses to add.
      * @return the current {@link Mail}
      */
@@ -250,6 +278,7 @@ public class Mail {
 
     /**
      * Removes an address from the 'reply-to' list.
+     *
      * @param reply the address to remove
      * @return the current {@link Mail}
      */
@@ -260,6 +289,7 @@ public class Mail {
 
     /**
      * Gets the 'reply-to' list of addresses.
+     *
      * @return the reply-to list
      */
     public List<String> replyTo() {
@@ -268,13 +298,14 @@ public class Mail {
 
     /**
      * Attachs a file to the current {@link Mail}.
+     *
      * @param file the file to attach
      * @return the current {@link Mail}
-     * @throws NullPointerException the file is <code>null</code>
+     * @throws NullPointerException  the file is <code>null</code>
      * @throws FileNotFoundException the file does not exist.
      */
     public Mail attach(File file) throws NullPointerException, FileNotFoundException {
-        if (file != null  && file.exists()) {
+        if (file != null && file.exists()) {
             m_attachments.add(file);
         } else if (file == null) {
             throw new NullPointerException("The given file is null");
@@ -288,9 +319,10 @@ public class Mail {
 
     /**
      * Attach a list of files to the current {@link Mail}
+     *
      * @param files the files to attach
      * @return the current {@link Mail}
-     * @throws NullPointerException if one of the file is <code>null</code>
+     * @throws NullPointerException  if one of the file is <code>null</code>
      * @throws FileNotFoundException if one of the file does not exist
      */
     public Mail attach(List<File> files) throws NullPointerException, FileNotFoundException {
@@ -307,6 +339,7 @@ public class Mail {
 
     /**
      * Removes an attached file.
+     *
      * @param attachment the file to remove
      * @return the current {@link Mail}
      */
@@ -317,6 +350,7 @@ public class Mail {
 
     /**
      * Gets the list of attached files.
+     *
      * @return the attached files
      */
     public List<File> attachments() {
@@ -325,6 +359,7 @@ public class Mail {
 
     /**
      * Sets the mail's subject.
+     *
      * @param subject the subject
      * @return the current {@link Mail}
      */
@@ -335,6 +370,7 @@ public class Mail {
 
     /**
      * Gets the subjects
+     *
      * @return the subject
      */
     public String subject() {
@@ -343,6 +379,7 @@ public class Mail {
 
     /**
      * Sets the mail's body
+     *
      * @param body the body
      * @return the current {@link Mail}
      */
@@ -353,6 +390,7 @@ public class Mail {
 
     /**
      * Gets the mail body.
+     *
      * @return the mail body
      */
     public String body() {
@@ -360,7 +398,48 @@ public class Mail {
     }
 
     /**
+     * Sets the mail's body charset
+     *
+     * @param charset a valid charset
+     * @return the current mail
+     */
+    public Mail charset(String charset) {
+        m_charset = charset;
+        return this;
+    }
+
+    /**
+     * Gets the mail's charset.
+     *
+     * @return the charset, {@literal null} if not set
+     */
+    public String charset() {
+        return m_charset;
+    }
+
+    /**
+     * Sets the mail's body sub-type.
+     *
+     * @param mime a valid mime sub-type for TEXT/
+     * @return the current mail
+     */
+    public Mail subType(String mime) {
+        m_mime = mime;
+        return this;
+    }
+
+    /**
+     * Gets the mail's sub-mime-type.
+     *
+     * @return the sub mime-type of TEXT/, {@literal null} if not set
+     */
+    public String subType() {
+        return m_mime;
+    }
+
+    /**
      * Is the mail read?
+     *
      * @return <code>true</code> if the mail was read,
      * <code>false</code> otherwise
      */
@@ -370,6 +449,7 @@ public class Mail {
 
     /**
      * Sets the read flag.
+     *
      * @param r read flag
      * @return the current {@link Mail}
      */
@@ -380,6 +460,7 @@ public class Mail {
 
     /**
      * Gets the sent date if any.
+     *
      * @return the sent date of <code>null</code>
      * if the mail was not sent.
      */
@@ -389,6 +470,7 @@ public class Mail {
 
     /**
      * Sets the sent date.
+     *
      * @param s the sent date
      * @return the current {@link Mail}
      */
@@ -399,6 +481,7 @@ public class Mail {
 
     /**
      * Gets the mail id if computed.
+     *
      * @return the mail id.
      */
     public String id() {
@@ -407,6 +490,7 @@ public class Mail {
 
     /**
      * Sets the mail id.
+     *
      * @param id the id
      * @return the current {@link Mail}
      */

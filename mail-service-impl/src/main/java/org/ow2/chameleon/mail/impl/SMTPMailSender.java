@@ -293,17 +293,14 @@ public class SMTPMailSender implements MailSenderService {
 
 		Date sent = new Date();
 		msg.setSentDate(sent);
-		if (mail != null) {
-			mail.sent(sent);
-		}
+        mail.sent(sent);
 
-
-		// create the Multipart and its parts to it
+        // create the Multipart and its parts to it
 		Multipart mp = new MimeMultipart();
 
 		// create and fill the first message part
 		MimeBodyPart mbp1 = new MimeBodyPart();
-		mbp1.setText(mail.body());
+		mbp1.setText(mail.body(), mail.charset(), mail.subType());
 		mp.addBodyPart(mbp1);
 
 		List<File> attachments = mail.attachments();

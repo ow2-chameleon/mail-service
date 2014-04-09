@@ -14,13 +14,13 @@
  */
 package org.ow2.chameleon.mail.impl;
 
+import org.ow2.chameleon.mail.Mail;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
-
-import org.ow2.chameleon.mail.Mail;
 
 
 /**
@@ -37,15 +37,19 @@ public class ReadOnlyMail extends Mail {
         this(to, subject, body, null);
     }
 
-    public ReadOnlyMail() { }
+    public ReadOnlyMail() {
+        // Default constructor.
+    }
 
     public ReadOnlyMail(Mail mail) throws IOException {
-    	super.to(mail.to());
-    	super.cc(mail.cc());
-    	super.replyTo(mail.replyTo());
-    	super.subject(mail.subject());
+        super.to(mail.to());
+        super.cc(mail.cc());
+        super.replyTo(mail.replyTo());
+        super.subject(mail.subject());
         super.body(mail.body());
         super.attach(mail.attachments());
+        super.charset(mail.charset());
+        super.subType(mail.subType());
         super.sent(mail.sent());
         super.read(mail.read());
         super.from(mail.from());
@@ -53,75 +57,84 @@ public class ReadOnlyMail extends Mail {
     }
 
     public ReadOnlyMail from(String from) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail to(String to) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail to(List<String> to) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail removeTo(String to) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail cc(List<String> cc) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail removeCC(String cc) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail cc(String cc) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail replyTo(String to) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail replyTo(List<String> reply) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail removeReplyTo(String reply) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail attach(File file) throws NullPointerException, FileNotFoundException {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail attach(List<File> files) throws NullPointerException, FileNotFoundException {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail removeAttachment(File attachment) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail subject(String subject) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail body(String body) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail read(boolean r) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail sent(Date s) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
     public ReadOnlyMail id(String id) {
-    	throw new UnsupportedOperationException();
+        throw new UnsupportedOperationException();
     }
 
+    @Override
+    public Mail subType(String mime) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Mail charset(String charset) {
+        throw new UnsupportedOperationException();
+    }
 }
